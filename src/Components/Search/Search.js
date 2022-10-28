@@ -10,6 +10,7 @@ import { searchMovie } from '../../features/currentGenereOrCategory';
 const Search = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const keyPressHandler = (event) => {
     if (event.key === 'Enter') {
@@ -17,6 +18,7 @@ const Search = () => {
       setSearchQuery('');
     }
   };
+  if (location.pathname !== '/') return null;
   return (
     <div className={classes.searchContainer}>
       <TextField

@@ -3,12 +3,14 @@ import { Box, CircularProgress, useMediaQuery, Typography } from '@mui/material'
 import { useSelector } from 'react-redux';
 
 import { useGetMoviesQuery } from '../../Services/TMDB';
-import MovieList from '../MovieList/MovieList';
+import { MovieList, Pagination } from '..';
 
 const Home = () => {
+  const lg = useMediaQuery((theme) => theme.breakpoints.only('lg'));
+  const numberOfMovies = lg ? 16 : 18;
   const [page, setPage] = useState(1);
-  const { genereIdOrCatagoryName,searchQuery} = useSelector((state) => state.currentGenereOrCategory);
-  const { data, isError, isFetching } = useGetMoviesQuery({ genereIdOrCatagoryName, page,searchQuery });
+  const { genereIdOrCatagoryName, searchQuery } = useSelector((state) => state.currentGenereOrCategory);
+  const { data, isError, isFetching } = useGetMoviesQuery({ genereIdOrCatagoryName, page, searchQuery });
   if (isFetching) {
     return (
       <Box display="flex" justifyContent="center">
@@ -32,7 +34,10 @@ const Home = () => {
   if (isError) return 'An Error Has Occured';
 
   return (
-    <MovieList movies={data} />
+    <>
+      <MovieList movies={data} numberOfMovies={numberOfMovies} />
+      <Pagination currentPage={page} setPage={setPage} totalPages={data?.total_pages} />
+    </>
   );
 };
 

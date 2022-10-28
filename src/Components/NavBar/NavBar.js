@@ -36,7 +36,6 @@ const NavBar = () => {
     };
     logInUser();
   }, [token]);
-  console.log(user);
 
   return (
     <>
