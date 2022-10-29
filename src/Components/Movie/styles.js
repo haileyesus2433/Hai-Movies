@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
     width: '230px',
     whiteSpace: 'no wrap',
     textAlign: 'center',
+
   },
   image: {
     borderRadius: '20px',

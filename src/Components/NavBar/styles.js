@@ -16,7 +16,7 @@ export default makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      display: 'none',
+      display: 'none !important',
     },
   },
   drawer: {
