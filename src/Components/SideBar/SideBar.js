@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Divider, List, ListItem, ListItemIcon, Box, ListItemText, ListSubheader, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import { useGetGenresQuery } from '../../Services/TMDB';
 import { selectGenreOrCategory } from '../../features/currentGenereOrCategory';
@@ -14,12 +14,16 @@ const catagories = [
   { label: 'Popular', value: 'popular' },
 ];
 
-const SideBar = () => {
-//   const theme = useTheme();
+const SideBar = ({ setMobileOpen }) => {
+  const { genereIdOrCatagoryName } = useSelector((state) => state.currentGenereOrCategory);
+  const theme = useTheme();
   const classes = useStyles();
+  const { data, isFetching } = useGetGenresQuery();
   const dispatch = useDispatch();
 
-  const { data, isFetching } = useGetGenresQuery();
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [genereIdOrCatagoryName]);
   if (isFetching) {
     return <CircularProgress />;
   }
